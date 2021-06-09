@@ -8,7 +8,7 @@ public class Bird : MonoBehaviour
 
     public float increment;
 
-    public int Direction { get; private set; } //true = right, false = left
+    public int Direction { get; private set; } //1 = right, -1 = left
     public int Score { get; private set; }
 
     // Start is called before the first frame update

@@ -10,32 +10,33 @@ public class CoinGenerator : MonoBehaviour
 
     private Bounds leftBounds;
     private Bounds rightBounds;
+    private Bird bird;
+    private bool coinSide; //true = right, false = lefts
 
-    // Start is called before the first frame update
     void Start()
     {
+        bird = GameObject.FindGameObjectWithTag("Player").GetComponent<Bird>();
+
         leftBounds = gameObject.transform.GetChild(0).GetComponent<BoxCollider2D>().bounds;
         rightBounds = gameObject.transform.GetChild(1).GetComponent<BoxCollider2D>().bounds;
-        CoinPos = new Vector2(Random.Range(leftBounds.min.y, leftBounds.max.y), leftBounds.center.x);
+        CoinPos = new Vector2(Random.Range(rightBounds.min.y, rightBounds.max.y), rightBounds.center.x);
 
         Instantiate(coin, CoinPos, Quaternion.identity);
     }
-    public int count;
-    // Update is called once per frame
+
     void Update()
     {
-        CoinPos = new Vector2(Random.Range(leftBounds.min.y, leftBounds.max.y), leftBounds.center.x);
         //uninstantiate the coin if the bird flies into it
-
-
-        //instantiate a coin in the new position
-        if (count > 120)
+        if (GameObject.FindGameObjectsWithTag("Coin").Length == 0)
         {
-            count = 0;
-            
+            //instantiate a coin in the new position
+            if (!coinSide)
+                CoinPos = new Vector2(rightBounds.center.x, Random.Range(rightBounds.min.y, rightBounds.max.y));
+            else if (coinSide)
+                CoinPos = new Vector2(leftBounds.center.x, Random.Range(leftBounds.min.y, leftBounds.max.y));
+            coinSide = !coinSide;
             Instantiate(coin, CoinPos, Quaternion.identity);
         }
-        count++;
 
     }
 
