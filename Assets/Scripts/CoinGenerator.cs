@@ -17,9 +17,11 @@ public class CoinGenerator : MonoBehaviour
     {
         bird = GameObject.FindGameObjectWithTag("Player").GetComponent<Bird>();
 
+        coinSide = true;
+
         leftBounds = gameObject.transform.GetChild(0).GetComponent<BoxCollider2D>().bounds;
         rightBounds = gameObject.transform.GetChild(1).GetComponent<BoxCollider2D>().bounds;
-        CoinPos = new Vector2(Random.Range(rightBounds.min.y, rightBounds.max.y), rightBounds.center.x);
+        CoinPos = new Vector2(rightBounds.center.x, Random.Range(rightBounds.min.y, rightBounds.max.y));
 
         Instantiate(coin, CoinPos, Quaternion.identity);
     }
